@@ -17,3 +17,13 @@ jobs:
            cache: maven
       - name: Build with Maven
         run: mvn clean install
+      - name: login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_ACCESS_TOKEN}}
+        run: ???
+      - name: build docker image
+        run: ???
+      - name: push that image to dockerHub
+        run: ????

@@ -21,11 +21,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      name: Build & push docker image
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: as9721/rso-data-aggregation
-        tags: latest
-        registry: Dockerfile.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_AUTH_TOKEN }}
+      - name: Build & push docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: as9721/rso-data-aggregation
+          tags: latest
+          registry: Dockerfile.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_AUTH_TOKEN }}

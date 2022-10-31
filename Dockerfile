@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:17-jdk
+EXPOSE 8080
+add target/rso-data-aggregation.jar rso-data-aggregation.jar
+ENTRYPOINT ["java","-jar","/rso-data-aggregation.jar"]

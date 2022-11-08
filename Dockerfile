@@ -1,4 +1,11 @@
-FROM openjdk:17-jdk
+FROM maven:3.8.6-openjdk-18 AS build
+COPY ./ /app
+WORKDIR /app
+RUN mvn --show-version --update-snapshots --batch-mode clean package
+
+FROM amazoncorretto:18
+RUN mkdir /app
+WORKDIR /app
+COPY --from=build ./app/target/data-aggregation.jar /app
 EXPOSE 8080
-add target/rso-data-aggregation.jar rso-data-aggregation.jar
-ENTRYPOINT ["java","-jar","/rso-data-aggregation.jar"]
+CMD ["java", "-jar", "data-aggregation.jar"]

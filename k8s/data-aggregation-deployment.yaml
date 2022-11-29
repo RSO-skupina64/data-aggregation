@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-aggregation-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-aggregation
+  template:
+    metadata:
+      labels:
+        app: data-aggregation
+    spec:
+      containers:
+        - image: as9721/data-aggregation:2022-11-29-23-24-37
+          name: data-aggregation
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-aggregation
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: data-aggregation

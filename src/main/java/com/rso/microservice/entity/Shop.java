@@ -14,8 +14,8 @@ public class Shop {
     @Column(name = "NAME", length = 100, nullable = false)
     private String name;
 
-    @OneToMany(targetEntity = ShopProduct.class, mappedBy = "shop")
-    List<ShopProduct> shopProducts;
+    @OneToMany(targetEntity = ProductShop.class, mappedBy = "shop")
+    List<ProductShop> productShops;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class Shop {
         this.name = name;
     }
 
-    public List<ShopProduct> getShopProducts() {
-        return shopProducts;
+    public List<ProductShop> getShopProducts() {
+        return productShops;
     }
 
-    public void setShopProducts(List<ShopProduct> shopProducts) {
-        this.shopProducts = shopProducts;
+    public void setShopProducts(List<ProductShop> productShops) {
+        this.productShops = productShops;
     }
 }

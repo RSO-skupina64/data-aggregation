@@ -1,6 +1,7 @@
 package com.rso.microservice.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,8 @@ public class Product {
     @Column(name = "BRAND", length = 100, nullable = false)
     private String brand;
 
-    @Column(name = "CONCENTRATION", length = 100, nullable = false)
-    private String concentration;
+    @Column(name = "CONCENTRATION", precision = 10, scale = 2, nullable = false)
+    private BigDecimal concentration;
 
     @Column(name = "CONCENTRATION_UNIT", length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -30,11 +31,8 @@ public class Product {
     @OneToMany(targetEntity = UserFavoriteProduct.class, mappedBy = "product")
     private List<UserFavoriteProduct> userFavoriteProducts;
 
-    @OneToMany(targetEntity = ShopProduct.class, mappedBy = "product")
-    private List<ShopProduct> shopProducts;
-
-    @OneToMany(targetEntity = ProductHistory.class, mappedBy = "product")
-    private List<ProductHistory> productHistories;
+    @OneToMany(targetEntity = ProductShop.class, mappedBy = "product")
+    private List<ProductShop> productShops;
 
     public Long getId() {
         return id;
@@ -60,11 +58,11 @@ public class Product {
         this.brand = brand;
     }
 
-    public String getConcentration() {
+    public BigDecimal getConcentration() {
         return concentration;
     }
 
-    public void setConcentration(String concentration) {
+    public void setConcentration(BigDecimal concentration) {
         this.concentration = concentration;
     }
 
@@ -92,19 +90,11 @@ public class Product {
         this.type = type;
     }
 
-    public List<ShopProduct> getShopProducts() {
-        return shopProducts;
+    public List<ProductShop> getShopProducts() {
+        return productShops;
     }
 
-    public void setShopProducts(List<ShopProduct> shopProducts) {
-        this.shopProducts = shopProducts;
-    }
-
-    public List<ProductHistory> getProductHistories() {
-        return productHistories;
-    }
-
-    public void setProductHistories(List<ProductHistory> productHistories) {
-        this.productHistories = productHistories;
+    public void setShopProducts(List<ProductShop> productShops) {
+        this.productShops = productShops;
     }
 }

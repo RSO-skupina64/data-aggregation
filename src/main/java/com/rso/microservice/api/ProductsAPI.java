@@ -3,7 +3,7 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.products.ProductDetailsDto;
 import com.rso.microservice.api.dto.products.ProductsArrayResponseDto;
-import com.rso.microservice.api.mapper.ProductMapper;
+import com.rso.microservice.api.mapper.ProductsMapper;
 import com.rso.microservice.service.ProductsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,13 +26,13 @@ public class ProductsAPI {
 
     final ProductsService productsService;
 
-    final ProductMapper productMapper;
+    final ProductsMapper productsMapper;
 
     @Autowired
 
-    public ProductsAPI(ProductsService productsService, ProductMapper productMapper) {
+    public ProductsAPI(ProductsService productsService, ProductsMapper productsMapper) {
         this.productsService = productsService;
-        this.productMapper = productMapper;
+        this.productsMapper = productsMapper;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +48,7 @@ public class ProductsAPI {
     })
     public ResponseEntity<ProductsArrayResponseDto> getProducts(@RequestParam(required = false) Integer offset, @RequestParam(required = false) Integer limit, @RequestParam(required = false) List<String> filterBy) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(productMapper.toModel(productsService.getAllProducts()));
+        return ResponseEntity.status(HttpStatus.OK).body(productsMapper.toModel(productsService.getAllProducts()));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

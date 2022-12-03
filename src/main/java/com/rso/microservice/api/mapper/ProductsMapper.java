@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface ProductMapper {
+public interface ProductsMapper {
 
     @Mapping(source = "products", target = "products")
     @Mapping(source = "count", target = "count")

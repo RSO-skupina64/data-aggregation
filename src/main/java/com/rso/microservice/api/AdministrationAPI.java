@@ -197,6 +197,22 @@ public class AdministrationAPI {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
+    @GetMapping(value = "/multi", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Get all shops",
+            description = "Get all shops")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "List of shops",
+                    content = @Content(schema = @Schema(implementation = MessageDto.class))),
+            @ApiResponse(responseCode = "400", description = "Bad request",
+                    content = @Content(schema = @Schema(implementation = ErrorDto.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = ErrorDto.class)))
+    })
+    public ResponseEntity<ShopsArrayResponseDto> getShops() {
+        // todo: add code here
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    }
+
     @DeleteMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Deletes User",
             description = "Deletes User")

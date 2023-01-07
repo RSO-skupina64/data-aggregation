@@ -21,6 +21,8 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <springboot.config.version>3.1.5</springboot.config.version>
         <spring.cloud.dependencies.version>2021.0.5</spring.cloud.dependencies.version>
+        <springboot.webflux.version>3.0.1</springboot.webflux.version>
+        <gson.version>2.10</gson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -74,6 +76,18 @@
             <version>${springboot.config.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${springboot.webflux.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -105,8 +119,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>9</source>
+                    <target>9</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

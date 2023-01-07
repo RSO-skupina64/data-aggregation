@@ -1,0 +1,9 @@
+{
+    calculatePrice(input: {productList: $productList}) {
+        shopPrices {
+            idShop
+            shopName
+            priceTotalEUR
+        }
+    }
+}

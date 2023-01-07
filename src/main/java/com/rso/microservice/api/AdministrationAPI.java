@@ -3,6 +3,7 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.MessageDto;
 import com.rso.microservice.api.dto.administration.*;
+import com.rso.microservice.service.MetricsService;
 import com.rso.microservice.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,9 +29,11 @@ public class AdministrationAPI {
     private static final Logger log = LoggerFactory.getLogger(AdministrationAPI.class);
 
     private final ShopService shopService;
+    private final MetricsService metricsService;
 
-    public AdministrationAPI(ShopService shopService) {
+    public AdministrationAPI(ShopService shopService, MetricsService metricsService) {
         this.shopService = shopService;
+        this.metricsService = metricsService;
     }
 
     @PostMapping(value = "/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,7 +49,10 @@ public class AdministrationAPI {
     })
     public ResponseEntity<ShopsArrayResponseDto> fetchProductPrices(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
         log.info("fetchProductPrices: ENTRY");
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         ShopsArrayResponseDto response = shopService.getShops();
+        metricsService.measureExecutionTime(start);
         log.info("fetchProductPrices: EXIT");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -63,7 +69,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> fetchProductPricesSpecificShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody PricesShopRequestDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -79,7 +88,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ProductBasicDetailsDto> createProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductCreateRequestDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -95,7 +107,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -110,7 +125,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductBasicDetailsDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -126,7 +144,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ProductHistoryWithIdDto> createProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductHistoryDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -142,7 +163,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -157,7 +181,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductHistoryWithIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -173,7 +200,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ShopWithIdDto> createShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -189,7 +219,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -204,7 +237,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopWithIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -220,7 +256,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ShopsArrayResponseDto> getShops() {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -236,7 +275,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -251,7 +293,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -267,7 +312,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ProductTypeWithIdDto> createProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -283,7 +331,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -298,7 +349,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeWithIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -314,7 +368,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<RoleWithIdDto> createRole(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -330,7 +387,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -345,7 +405,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleWithIdDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 

@@ -3,14 +3,15 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.MessageDto;
 import com.rso.microservice.api.dto.administration.*;
-import com.rso.microservice.api.dto.products.ProductDetailsDto;
-import com.rso.microservice.api.dto.products.ProductDto;
+import com.rso.microservice.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +25,14 @@ import javax.validation.Valid;
 @Tag(name = "Administration")
 public class AdministrationAPI {
 
+    private static final Logger log = LoggerFactory.getLogger(AdministrationAPI.class);
+
+    private final ShopService shopService;
+
+    public AdministrationAPI(ShopService shopService) {
+        this.shopService = shopService;
+    }
+
     @PostMapping(value = "/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Fetches prices for all shops",
             description = "Fetches prices for all shops")
@@ -35,9 +44,11 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> fetchProductPrices(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
-        // todo: add code here
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    public ResponseEntity<ShopsArrayResponseDto> fetchProductPrices(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
+        log.info("fetchProductPrices: ENTRY");
+        ShopsArrayResponseDto response = shopService.getShops();
+        log.info("fetchProductPrices: EXIT");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(value = "/prices/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

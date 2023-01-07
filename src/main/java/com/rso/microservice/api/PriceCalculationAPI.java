@@ -5,12 +5,15 @@ import com.rso.microservice.api.dto.pricecalculation.CalculatePriceRequestDto;
 import com.rso.microservice.api.dto.pricecalculation.CalculatePriceSpecificShopRequestDto;
 import com.rso.microservice.api.dto.pricecalculation.PriceCalculationResponseDto;
 import com.rso.microservice.api.dto.pricecalculation.ShopPriceDto;
+import com.rso.microservice.service.PriceCalculationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,13 @@ import javax.validation.Valid;
 @RequestMapping("/price")
 @Tag(name = "Price Calculation")
 public class PriceCalculationAPI {
+    private static final Logger log = LoggerFactory.getLogger(PriceCalculationAPI.class);
+
+    private final PriceCalculationService priceCalculationService;
+
+    public PriceCalculationAPI(PriceCalculationService priceCalculationService) {
+        this.priceCalculationService = priceCalculationService;
+    }
 
     @PostMapping(value = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Calculates price of products for all shops",
@@ -38,8 +48,10 @@ public class PriceCalculationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<PriceCalculationResponseDto> calculatePrice(@Valid @RequestBody CalculatePriceRequestDto favoriteProductRequest) {
-        // todo: add code here
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        log.info("calculatePrice: ENTRY");
+        PriceCalculationResponseDto response = priceCalculationService.calculatePrice(favoriteProductRequest.getProductList());
+        log.info("calculatePrice: EXIT");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(value = "/calculate/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

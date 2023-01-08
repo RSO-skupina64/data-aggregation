@@ -2,12 +2,12 @@ package com.rso.microservice.api.dto.favoriteproducts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class FavoriteProductRequestDto {
 
     @JsonProperty("product_id")
-    @NotBlank(message = " is required.")
+    @NotNull(message = "is required.")
     private Long id;
 
     public Long getId() {

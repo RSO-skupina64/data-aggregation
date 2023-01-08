@@ -3,12 +3,16 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.MessageDto;
 import com.rso.microservice.api.dto.administration.*;
+import com.rso.microservice.service.MetricsService;
+import com.rso.microservice.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +26,16 @@ import javax.validation.Valid;
 @Tag(name = "Administration")
 public class AdministrationAPI {
 
+    private static final Logger log = LoggerFactory.getLogger(AdministrationAPI.class);
+
+    private final ShopService shopService;
+    private final MetricsService metricsService;
+
+    public AdministrationAPI(ShopService shopService, MetricsService metricsService) {
+        this.shopService = shopService;
+        this.metricsService = metricsService;
+    }
+
     @PostMapping(value = "/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Fetches prices for all shops",
             description = "Fetches prices for all shops")
@@ -33,9 +47,15 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> fetchProductPrices(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
-        // todo: add code here
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    public ResponseEntity<ShopsArrayResponseDto> fetchProductPrices(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
+        log.info("fetchProductPrices: ENTRY");
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
+        ShopsArrayResponseDto response = shopService.getShops();
+        metricsService.measureExecutionTime(start);
+        log.info("fetchProductPrices: EXIT");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(value = "/prices/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,8 +69,13 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> fetchProductPricesSpecificShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody PricesShopRequestDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> fetchProductPricesSpecificShop(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+            @Valid @RequestBody PricesShopRequestDto pricesShopRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -65,8 +90,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductBasicDetailsDto> createProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductCreateRequestDto productCreateRequest) {
+    public ResponseEntity<ProductBasicDetailsDto> createProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                                @Valid @RequestBody ProductCreateRequestDto productCreateRequest) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -81,8 +110,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto deleteProduct) {
+    public ResponseEntity<MessageDto> deleteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                    @Valid @RequestBody DeleteProductDto deleteProduct) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -96,8 +129,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductBasicDetailsDto productBasicDetails) {
+    public ResponseEntity<?> updateProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                           @Valid @RequestBody ProductBasicDetailsDto productBasicDetails) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -112,8 +149,13 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductShopHistoryWithIdDto> createProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductShopHistoryDto productShopHistory) {
+    public ResponseEntity<ProductShopHistoryWithIdDto> createProductHistory(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+            @Valid @RequestBody ProductShopHistoryDto productShopHistory) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -128,8 +170,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto deleteProduct) {
+    public ResponseEntity<MessageDto> deleteProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                           @Valid @RequestBody DeleteProductDto deleteProduct) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -143,8 +189,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductShopHistoryWithIdDto productShopHistoryWithId) {
+    public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                  @Valid @RequestBody ProductShopHistoryWithIdDto productShopHistoryWithId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -159,8 +209,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ShopWithIdDto> createShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopDto shop) {
+    public ResponseEntity<ShopWithIdDto> createShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                    @Valid @RequestBody ShopDto shop) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -175,8 +229,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopIdDto shopId) {
+    public ResponseEntity<MessageDto> deleteShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                 @Valid @RequestBody ShopIdDto shopId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -190,8 +248,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopWithIdDto shopWithId) {
+    public ResponseEntity<?> updateShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                        @Valid @RequestBody ShopWithIdDto shopWithId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -207,7 +269,10 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ShopsArrayResponseDto> getShops() {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -222,8 +287,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserIdDto userId) {
+    public ResponseEntity<MessageDto> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                 @Valid @RequestBody UserIdDto userId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -237,8 +306,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserDto user) {
+    public ResponseEntity<?> updateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                        @Valid @RequestBody UserDto user) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -253,8 +326,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductTypeWithIdDto> createProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeDto productType) {
+    public ResponseEntity<ProductTypeWithIdDto> createProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                                  @Valid @RequestBody ProductTypeDto productType) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -269,8 +346,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeIdDto productTypeId) {
+    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                        @Valid @RequestBody ProductTypeIdDto productTypeId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -284,8 +365,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeWithIdDto productTypeWithId) {
+    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                               @Valid @RequestBody ProductTypeWithIdDto productTypeWithId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -300,8 +385,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<RoleWithIdDto> createRole(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleDto role) {
+    public ResponseEntity<RoleWithIdDto> createRole(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                    @Valid @RequestBody RoleDto role) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -316,8 +405,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleIdDto roleId) {
+    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                        @Valid @RequestBody RoleIdDto roleId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
@@ -331,8 +424,12 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleWithIdDto roleWithId) {
+    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                               @Valid @RequestBody RoleWithIdDto roleWithId) {
+        long start = System.currentTimeMillis();
+        metricsService.increaseRequestCounterAndLogDate();
         // todo: add code here
+        metricsService.measureExecutionTime(start);
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 

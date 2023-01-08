@@ -12,10 +12,12 @@ public class RegistrationRequestDto {
     @JsonProperty("username")
     @Length(min = 5, max = 20)
     private String username;
+
     @NotBlank(message = "is required.")
     @JsonProperty("password")
     @Length(min = 7, max = 20)
     private String password;
+
     @NotBlank(message = "is required.")
     @JsonProperty("repeat_password")
     @Length(min = 7, max = 20)

@@ -13,14 +13,17 @@ public class ProductDto {
     @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("type")
-    private String type;
+    @JsonProperty("product_type")
+    private String productType;
 
     @JsonProperty("concentration")
     private Double concentration;
 
     @JsonProperty("concentration_unit")
     private String concentrationUnit;
+
+    @JsonProperty("image")
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -46,12 +49,12 @@ public class ProductDto {
         this.brand = brand;
     }
 
-    public String getType() {
-        return type;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public Double getConcentration() {
@@ -68,5 +71,13 @@ public class ProductDto {
 
     public void setConcentrationUnit(String concentrationUnit) {
         this.concentrationUnit = concentrationUnit;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

@@ -3,8 +3,6 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.MessageDto;
 import com.rso.microservice.api.dto.administration.*;
-import com.rso.microservice.api.dto.products.ProductDetailsDto;
-import com.rso.microservice.api.dto.products.ProductDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -67,7 +65,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductBasicDetailsDto> createProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductCreateRequestDto pricesShopRequest) {
+    public ResponseEntity<ProductBasicDetailsDto> createProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductCreateRequestDto productCreateRequest) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -83,7 +81,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto deleteProduct) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -98,7 +96,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductBasicDetailsDto pricesShopRequest) {
+    public ResponseEntity<?> updateProduct(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductBasicDetailsDto productBasicDetails) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -108,13 +106,13 @@ public class AdministrationAPI {
             description = "Creates new product")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Create new product history",
-                    content = @Content(schema = @Schema(implementation = ProductHistoryWithIdDto.class))),
+                    content = @Content(schema = @Schema(implementation = ProductShopHistoryWithIdDto.class))),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductHistoryWithIdDto> createProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductHistoryDto pricesShopRequest) {
+    public ResponseEntity<ProductShopHistoryWithIdDto> createProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductShopHistoryDto productShopHistory) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -130,7 +128,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody DeleteProductDto deleteProduct) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -145,7 +143,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductHistoryWithIdDto pricesShopRequest) {
+    public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductShopHistoryWithIdDto productShopHistoryWithId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -161,7 +159,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ShopWithIdDto> createShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopDto pricesShopRequest) {
+    public ResponseEntity<ShopWithIdDto> createShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopDto shop) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -177,7 +175,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopIdDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopIdDto shopId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -192,7 +190,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopWithIdDto pricesShopRequest) {
+    public ResponseEntity<?> updateShop(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ShopWithIdDto shopWithId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -224,7 +222,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserIdDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserIdDto userId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -239,7 +237,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserDto pricesShopRequest) {
+    public ResponseEntity<?> updateUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody UserDto user) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -255,7 +253,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductTypeWithIdDto> createProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeDto pricesShopRequest) {
+    public ResponseEntity<ProductTypeWithIdDto> createProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeDto productType) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -271,7 +269,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeIdDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeIdDto productTypeId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -286,7 +284,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeWithIdDto pricesShopRequest) {
+    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody ProductTypeWithIdDto productTypeWithId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -302,7 +300,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<RoleWithIdDto> createRole(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleDto pricesShopRequest) {
+    public ResponseEntity<RoleWithIdDto> createRole(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleDto role) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -318,7 +316,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleIdDto pricesShopRequest) {
+    public ResponseEntity<MessageDto> deleteProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleIdDto roleId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
@@ -333,7 +331,7 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleWithIdDto pricesShopRequest) {
+    public ResponseEntity<?> updateProductType(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @Valid @RequestBody RoleWithIdDto roleWithId) {
         // todo: add code here
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }

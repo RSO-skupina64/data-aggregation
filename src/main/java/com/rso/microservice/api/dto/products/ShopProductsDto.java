@@ -12,8 +12,8 @@ public class ShopProductsDto {
     @JsonProperty("shop_name")
     private String shopName;
 
-    @JsonProperty("product_history")
-    List<ProductHistoryDto> productHistory;
+    @JsonProperty("product_shop_history")
+    List<ProductShopHistoryDto> productShopHistory;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class ShopProductsDto {
         this.shopName = shopName;
     }
 
-    public List<ProductHistoryDto> getProductHistory() {
-        return productHistory;
+    public List<ProductShopHistoryDto> getProductShopHistory() {
+        return productShopHistory;
     }
 
-    public void setProductHistory(List<ProductHistoryDto> productHistory) {
-        this.productHistory = productHistory;
+    public void setProductShopHistory(List<ProductShopHistoryDto> productShopHistory) {
+        this.productShopHistory = productShopHistory;
     }
 }

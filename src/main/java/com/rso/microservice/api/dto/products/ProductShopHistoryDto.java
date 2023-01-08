@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
-public class ProductHistoryDto {
+public class ProductShopHistoryDto {
 
     @JsonProperty("id")
     private Long id;

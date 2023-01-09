@@ -52,10 +52,10 @@ public class AdministrationAPI {
         log.info("fetchProductPrices: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-        ShopsArrayResponseDto response = shopService.getShops();
+        // todo add core here
         metricsService.measureExecutionTime(start);
         log.info("fetchProductPrices: EXIT");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
     @PostMapping(value = "/prices/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -271,9 +271,9 @@ public class AdministrationAPI {
     public ResponseEntity<ShopsArrayResponseDto> getShops() {
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-        // todo: add code here
+        ShopsArrayResponseDto response = shopService.getShops();
         metricsService.measureExecutionTime(start);
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

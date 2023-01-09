@@ -21,11 +21,19 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <springboot.config.version>3.1.5</springboot.config.version>
         <spring.cloud.dependencies.version>2021.0.5</spring.cloud.dependencies.version>
+        <spring.actuator.version>3.0.1</spring.actuator.version>
         <springboot.webflux.version>3.0.1</springboot.webflux.version>
         <gson.version>2.10</gson.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <protobuf.version>3.21.0</protobuf.version>
         <grpc.version>1.51.1</grpc.version>
+        <logstash.logback.encoder.version>4.9</logstash.logback.encoder.version>
+        <logback.version>1.2.3</logback.version>
+        <starter.hystrix.version>1.4.7.RELEASE</starter.hystrix.version>
+        <dashboard.hystrix.version>2.2.10.RELEASE</dashboard.hystrix.version>
+        <spring-boot-starter-thymeleaf.version>3.0.1</spring-boot-starter-thymeleaf.version>
+        <starter.netflix.hystrix.version>2.2.9.RELEASE</starter.netflix.hystrix.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -86,6 +94,54 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.actuator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.logback.encoder.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+            <version>${starter.hystrix.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+            <version>${dashboard.hystrix.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${spring-boot-starter-thymeleaf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>${starter.netflix.hystrix.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
@@ -139,6 +195,14 @@
                         <enabled>true</enabled>
                     </layers>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -146,8 +210,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>9</source>
-                    <target>9</target>
+                    <source>11</source>
+                    <target>11</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

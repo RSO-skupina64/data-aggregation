@@ -17,8 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/products")
 @Tag(name = "Products")
@@ -48,7 +46,8 @@ public class ProductsAPI {
     })
     public ResponseEntity<ProductsArrayResponseDto> getProducts(@RequestParam(required = false) Integer offset,
                                                                 @RequestParam(required = false) Integer limit) {
-        return ResponseEntity.status(HttpStatus.OK).body(productsMapper.toModel(productsService.getAllProducts(offset, limit)));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                productsMapper.toModelProductDto(productsService.getAllProducts(offset, limit)));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,8 +62,8 @@ public class ProductsAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ProductDetailsDto> getProduct(@PathVariable Long id) {
-        // todo: add code here
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        return ResponseEntity.status(HttpStatus.OK).body(
+                productsMapper.toModelProductDetailsDto(productsService.findById(id)));
     }
 
 }

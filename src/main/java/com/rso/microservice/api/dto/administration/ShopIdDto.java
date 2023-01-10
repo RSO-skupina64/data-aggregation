@@ -2,9 +2,12 @@ package com.rso.microservice.api.dto.administration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
+
 public class ShopIdDto {
 
     @JsonProperty("id_shop")
+    @NotBlank(message = "is required")
     private String idShop;
 
     public String getIdShop() {

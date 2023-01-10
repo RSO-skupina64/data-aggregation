@@ -28,7 +28,7 @@ import javax.validation.Valid;
 public class AuthenticationAPI {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Register a new User",
+    @Operation(summary = "Register a new user",
             description = "Given an username and password, register a new user into the application")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "User successfully registered",
@@ -44,7 +44,7 @@ public class AuthenticationAPI {
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Login a User",
+    @Operation(summary = "Login a user",
             description = "Given an username and password, log in an user into the application")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Log in successful",

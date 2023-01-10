@@ -3,6 +3,7 @@ package com.rso.microservice.api;
 import com.rso.microservice.api.dto.ErrorDto;
 import com.rso.microservice.api.dto.MessageDto;
 import com.rso.microservice.api.dto.administration.*;
+import com.rso.microservice.service.AdministratorService;
 import com.rso.microservice.service.MetricsService;
 import com.rso.microservice.service.ShopService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,15 +29,18 @@ public class AdministrationAPI {
 
     private static final Logger log = LoggerFactory.getLogger(AdministrationAPI.class);
 
+    private final AdministratorService administratorService;
     private final ShopService shopService;
     private final MetricsService metricsService;
 
-    public AdministrationAPI(ShopService shopService, MetricsService metricsService) {
+    public AdministrationAPI(AdministratorService administratorService, ShopService shopService,
+                             MetricsService metricsService) {
+        this.administratorService = administratorService;
         this.shopService = shopService;
         this.metricsService = metricsService;
     }
 
-    @PostMapping(value = "/prices", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/prices", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Fetches prices for all shops",
             description = "Fetches prices for all shops")
     @ApiResponses({
@@ -47,18 +51,19 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ShopsArrayResponseDto> fetchProductPrices(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
+    public ResponseEntity<MessageDto> fetchProductPrices(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+            @RequestParam(required = false, defaultValue = "false") boolean fetchPictures) {
         log.info("fetchProductPrices: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-        // todo add core here
+        String response = administratorService.fetchProductPrices(jwt, fetchPictures);
         metricsService.measureExecutionTime(start);
         log.info("fetchProductPrices: EXIT");
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
-    @PostMapping(value = "/prices/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/prices/shop/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Fetches prices for specific shop",
             description = "Fetches prices for specific shop")
     @ApiResponses({
@@ -70,13 +75,15 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> fetchProductPricesSpecificShop(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
-            @Valid @RequestBody PricesShopRequestDto pricesShopRequest) {
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwt, @PathVariable String id,
+            @RequestParam(required = false, defaultValue = "false") boolean fetchPictures) {
+        log.info("fetchProductPricesSpecificShop: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-        // todo: add code here
+        String response = administratorService.fetchProductPricesSpecificShop(jwt, id, fetchPictures);
         metricsService.measureExecutionTime(start);
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        log.info("fetchProductPricesSpecificShop: EXIT");
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PostMapping(value = "/product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

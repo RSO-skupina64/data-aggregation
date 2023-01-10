@@ -465,6 +465,61 @@ public class AdministratorService {
     }
 
     // shop
+
     // user
+    public String deleteUser(String jwt, UserIdDto userId) {
+        log.info("deleteUser from URL: {}", administratorUserUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callDeleteUser(jwt, userId, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerDeleteUser")
+    public MessageDto callDeleteUser(String jwt, UserIdDto userId, String requestId,
+                                     String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(userId, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorUserUrl, HttpMethod.DELETE,
+                requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerDeleteUser(String jwt, UserIdDto userId, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling deleteUser, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
+
+    public String updateUser(String jwt, UserDto user) {
+        log.info("updateUser from URL: {}", administratorUserUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callUpdateUser(jwt, user, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerUpdateUser")
+    public MessageDto callUpdateUser(String jwt, UserDto user, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(user, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorUserUrl, HttpMethod.PUT,
+                requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerUpdateUser(String jwt, UserDto user, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling updateUser, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
 
 }

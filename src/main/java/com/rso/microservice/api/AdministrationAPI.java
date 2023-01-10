@@ -453,11 +453,10 @@ public class AdministrationAPI {
         log.info("deleteUser: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.deleteUser(jwt, userId);
+        String response = administratorService.deleteUser(jwt, userId);
         metricsService.measureExecutionTime(start);
         log.info("deleteUser: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -475,11 +474,10 @@ public class AdministrationAPI {
         log.info("updateUser: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.updateUser(jwt, user);
+        String response = administratorService.updateUser(jwt, user);
         metricsService.measureExecutionTime(start);
         log.info("updateUser: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
 }

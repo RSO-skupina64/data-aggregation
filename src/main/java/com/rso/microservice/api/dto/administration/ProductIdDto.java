@@ -2,9 +2,12 @@ package com.rso.microservice.api.dto.administration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DeleteProductDto {
+import javax.validation.constraints.NotNull;
+
+public class ProductIdDto {
 
     @JsonProperty("id_product")
+    @NotNull(message = "is required")
     private Long idProduct;
 
     public Long getIdProduct() {
@@ -14,4 +17,5 @@ public class DeleteProductDto {
     public void setIdProduct(Long idProduct) {
         this.idProduct = idProduct;
     }
+
 }

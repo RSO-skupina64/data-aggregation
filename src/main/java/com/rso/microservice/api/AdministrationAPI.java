@@ -299,11 +299,10 @@ public class AdministrationAPI {
         log.info("createRole: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        RoleWithIdDto roleWithId = administratorService.createRole(jwt, role);
+        RoleWithIdDto roleWithId = administratorService.createRole(jwt, role);
         metricsService.measureExecutionTime(start);
         log.info("createRole: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(roleWithId);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(roleWithId);
     }
 
     @DeleteMapping(value = "/role", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -322,11 +321,10 @@ public class AdministrationAPI {
         log.info("deleteRole: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.deleteRole(jwt, roleId);
+        String response = administratorService.deleteRole(jwt, roleId);
         metricsService.measureExecutionTime(start);
         log.info("deleteRole: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PutMapping(value = "/role", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -344,11 +342,10 @@ public class AdministrationAPI {
         log.info("updateRole: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.updateRole(jwt, roleWithId);
+        String response = administratorService.updateRole(jwt, roleWithId);
         metricsService.measureExecutionTime(start);
         log.info("updateRole: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PostMapping(value = "/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

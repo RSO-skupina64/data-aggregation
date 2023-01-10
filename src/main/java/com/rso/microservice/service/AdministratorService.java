@@ -383,6 +383,87 @@ public class AdministratorService {
     }
 
     // role
+    public RoleWithIdDto createRole(String jwt, RoleDto role) {
+        log.info("createRole from URL: {}", administratorRoleUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        RoleWithIdDto response = administratorService.callCreateRole(jwt, role, requestId, version);
+        log.info("received response: {}", response);
+        return response;
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerCreateRole")
+    public RoleWithIdDto callCreateRole(String jwt, RoleDto role, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(role, headers);
+        ResponseEntity<RoleWithIdDto> response = new RestTemplate().exchange(administratorRoleUrl, HttpMethod.POST,
+                requestEntity, RoleWithIdDto.class);
+        return response.getBody();
+    }
+
+    public RoleWithIdDto circuitBreakerCreateRole(String jwt, RoleDto role, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling createRole, so circuit breaker was activated");
+        return null;
+    }
+
+    public String deleteRole(String jwt, RoleIdDto roleId) {
+        log.info("deleteRole from URL: {}", administratorRoleUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callDeleteRole(jwt, roleId, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerDeleteRole")
+    public MessageDto callDeleteRole(String jwt, RoleIdDto roleId, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(roleId, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorRoleUrl, HttpMethod.DELETE,
+                requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerDeleteRole(String jwt, RoleIdDto roleId, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling deleteRole, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
+
+    public String updateRole(String jwt, RoleWithIdDto roleWithId) {
+        log.info("updateRole from URL: {}", administratorRoleUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callUpdateRole(jwt, roleWithId, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerUpdateRole")
+    public MessageDto callUpdateRole(String jwt, RoleWithIdDto roleWithId, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(roleWithId, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorRoleUrl, HttpMethod.PUT,
+                requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerUpdateRole(String jwt, RoleWithIdDto roleWithId, String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling updateRole, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
+
     // shop
     // user
 

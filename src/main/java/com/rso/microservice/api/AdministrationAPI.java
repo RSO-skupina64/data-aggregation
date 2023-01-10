@@ -364,11 +364,10 @@ public class AdministrationAPI {
         log.info("createShop: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        ShopWithIdDto shopWithId = administratorService.createShop(jwt, shop);
+        ShopWithIdDto shopWithId = administratorService.createShop(jwt, shop);
         metricsService.measureExecutionTime(start);
         log.info("createShop: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(shopWithId);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(shopWithId);
     }
 
     @DeleteMapping(value = "/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -387,11 +386,10 @@ public class AdministrationAPI {
         log.info("deleteShop: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.deleteShop(jwt, shopId);
+        String response = administratorService.deleteShop(jwt, shopId);
         metricsService.measureExecutionTime(start);
         log.info("deleteShop: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PutMapping(value = "/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -409,14 +407,13 @@ public class AdministrationAPI {
         log.info("updateShop: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.updateShop(jwt, shopWithId);
+        String response = administratorService.updateShop(jwt, shopWithId);
         metricsService.measureExecutionTime(start);
         log.info("updateShop: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
-    @GetMapping(value = "/multi", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/shop/multi", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get all shops",
             description = "Get all shops")
     @ApiResponses({

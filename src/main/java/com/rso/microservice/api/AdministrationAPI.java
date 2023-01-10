@@ -168,12 +168,11 @@ public class AdministrationAPI {
         log.info("createProductShopHistory: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        ProductShopHistoryWithIdDto productShopHistoryWithId = administratorService.createProductShopHistory(jwt,
-//                productShopHistory);
+        ProductShopHistoryWithIdDto productShopHistoryWithId = administratorService.createProductShopHistory(jwt,
+                productShopHistory);
         metricsService.measureExecutionTime(start);
         log.info("createProductShopHistory: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(productShopHistoryWithId);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(productShopHistoryWithId);
     }
 
     @DeleteMapping(value = "/product-shop/history", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -188,15 +187,14 @@ public class AdministrationAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<MessageDto> deleteProductShopHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
-                                                               @Valid @RequestBody ProductIdDto deleteProduct) {
+                                                               @Valid @RequestBody ProductIdDto productId) {
         log.info("deleteProductShopHistory: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.deleteProductShopHistory(jwt, deleteProduct);
+        String response = administratorService.deleteProductShopHistory(jwt, productId);
         metricsService.measureExecutionTime(start);
         log.info("deleteProductShopHistory: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PutMapping(value = "/product-shop/history", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -209,16 +207,15 @@ public class AdministrationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<?> updateProductHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
-                                                  @Valid @RequestBody ProductShopHistoryWithIdDto productShopHistoryWithId) {
+    public ResponseEntity<?> updateProductShopHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt,
+                                                      @Valid @RequestBody ProductShopHistoryWithIdDto productShopHistoryWithId) {
         log.info("updateProductHistory: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.updateProductHistory(jwt, productShopHistoryWithId);
+        String response = administratorService.updateProductShopHistory(jwt, productShopHistoryWithId);
         metricsService.measureExecutionTime(start);
         log.info("updateProductHistory: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PostMapping(value = "/product-type", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

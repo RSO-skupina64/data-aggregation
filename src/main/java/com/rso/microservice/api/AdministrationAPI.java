@@ -234,11 +234,10 @@ public class AdministrationAPI {
         log.info("createProductType: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        ProductTypeWithIdDto productTypeWithId = administratorService.createProductType(jwt, productType);
+        ProductTypeWithIdDto productTypeWithId = administratorService.createProductType(jwt, productType);
         metricsService.measureExecutionTime(start);
         log.info("createProductType: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(productTypeWithId);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(productTypeWithId);
     }
 
     @DeleteMapping(value = "/product-type", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -257,11 +256,10 @@ public class AdministrationAPI {
         log.info("deleteProductType: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.deleteProductType(jwt, productTypeId);
+        String response = administratorService.deleteProductType(jwt, productTypeId);
         metricsService.measureExecutionTime(start);
         log.info("deleteProductType: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PutMapping(value = "/product-type", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -279,11 +277,10 @@ public class AdministrationAPI {
         log.info("updateProductType: ENTRY");
         long start = System.currentTimeMillis();
         metricsService.increaseRequestCounterAndLogDate();
-//        String response = administratorService.updateProductType(jwt, productTypeWithId);
+        String response = administratorService.updateProductType(jwt, productTypeWithId);
         metricsService.measureExecutionTime(start);
         log.info("updateProductType: EXIT");
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(response));
     }
 
     @PostMapping(value = "/role", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

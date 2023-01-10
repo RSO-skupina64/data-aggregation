@@ -33,7 +33,7 @@ public class AdministratorService {
     @Value("${microservice.administrator.url}/product-shop/history")
     private String administratorProductShopHistoryUrl;
     @Value("${microservice.administrator.url}/product-type")
-    private String administratorProductTypesUrl;
+    private String administratorProductTypeUrl;
     @Value("${microservice.administrator.url}/role")
     private String administratorRoleUrl;
     @Value("${microservice.administrator.url}/shop")
@@ -294,6 +294,94 @@ public class AdministratorService {
     }
 
     // productType
+    public ProductTypeWithIdDto createProductType(String jwt, ProductTypeDto productType) {
+        log.info("createProductType from URL: {}", administratorProductTypeUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        ProductTypeWithIdDto response = administratorService.callCreateProductType(jwt, productType, requestId,
+                version);
+        log.info("received response: {}", response);
+        return response;
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerCreateProductType")
+    public ProductTypeWithIdDto callCreateProductType(String jwt, ProductTypeDto productType, String requestId,
+                                                      String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(productType, headers);
+        ResponseEntity<ProductTypeWithIdDto> response = new RestTemplate().exchange(administratorProductTypeUrl,
+                HttpMethod.POST, requestEntity, ProductTypeWithIdDto.class);
+        return response.getBody();
+    }
+
+    public ProductTypeWithIdDto circuitBreakerCreateProductType(String jwt, ProductTypeDto productType,
+                                                                String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling createProductType, so circuit breaker was activated");
+        return null;
+    }
+
+    public String deleteProductType(String jwt, ProductTypeIdDto productTypeId) {
+        log.info("deleteProductType from URL: {}", administratorProductTypeUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callDeleteProductType(jwt, productTypeId, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerDeleteProductType")
+    public MessageDto callDeleteProductType(String jwt, ProductTypeIdDto productTypeId, String requestId,
+                                            String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(productTypeId, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorProductTypeUrl,
+                HttpMethod.DELETE, requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerDeleteProductType(String jwt, ProductTypeIdDto productTypeId, String requestId,
+                                                      String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling deleteProductType, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
+
+    public String updateProductType(String jwt, ProductTypeWithIdDto productTypeWithId) {
+        log.info("updateProductType from URL: {}", administratorProductTypeUrl);
+        String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
+        String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
+        MessageDto response = administratorService.callUpdateProductType(jwt, productTypeWithId, requestId, version);
+        log.info("received response: {}", response.getMessage());
+        return response.getMessage();
+    }
+
+    @HystrixCommand(fallbackMethod = "circuitBreakerUpdateProductType")
+    public MessageDto callUpdateProductType(String jwt, ProductTypeWithIdDto productTypeWithId, String requestId,
+                                            String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwt);
+        headers.add("X-Request-Id", requestId);
+        HttpEntity<?> requestEntity = new HttpEntity<>(productTypeWithId, headers);
+        ResponseEntity<MessageDto> response = new RestTemplate().exchange(administratorProductTypeUrl, HttpMethod.PUT,
+                requestEntity, MessageDto.class);
+        return response.getBody();
+    }
+
+    public MessageDto circuitBreakerUpdateProductType(String jwt, ProductTypeWithIdDto productTypeWithId,
+                                                      String requestId, String version) {
+        MDCUtil.putAll("Administration", version, requestId);
+        log.error("There was an error when calling updateProductType, so circuit breaker was activated");
+        return new MessageDto("Error while calling product shop history circuit breaker method called");
+    }
+
     // role
     // shop
     // user

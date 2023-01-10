@@ -63,8 +63,4 @@ public class PriceCalculationService {
                 .bodyToMono(PriceCalculationGraphQLResponseBody.class).block();
     }
 
-    public PriceCalculationGraphQLResponseBody circuitBreaker(PriceCalculationGraphQLRequestBody requestBody) {
-        return new PriceCalculationGraphQLResponseBody();
-    }
-
 }

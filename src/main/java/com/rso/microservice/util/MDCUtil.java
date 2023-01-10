@@ -16,6 +16,12 @@ public class MDCUtil {
 		MDC.clear();
 	}
 
+	public static void putAll(String name, String version, String requestId) {
+		MDC.put(MDCUtilKey.MICROSERVICE_NAME.getValue(), name);
+		MDC.put(MDCUtilKey.MICROSERVICE_VERSION.getValue(), version);
+		MDC.put(MDCUtilKey.REQUEST_ID.getValue(), requestId);
+	}
+
 	public enum MDCUtilKey {
 		MICROSERVICE_NAME("microservice-name"),
 		MICROSERVICE_VERSION("microservice-version"),

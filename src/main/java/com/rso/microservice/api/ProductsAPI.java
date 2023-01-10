@@ -46,8 +46,9 @@ public class ProductsAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ProductsArrayResponseDto> getProducts(@RequestParam(required = false) Integer offset, @RequestParam(required = false) Integer limit, @RequestParam(required = false) List<String> filterBy) {
-
+    public ResponseEntity<ProductsArrayResponseDto> getProducts(@RequestParam(required = false) Integer offset,
+                                                                @RequestParam(required = false) Integer limit,
+                                                                @RequestParam(required = false) List<String> filterBy) {
         return ResponseEntity.status(HttpStatus.OK).body(productsMapper.toModel(productsService.getAllProducts()));
     }
 

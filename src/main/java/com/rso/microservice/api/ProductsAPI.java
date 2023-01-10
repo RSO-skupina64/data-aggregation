@@ -47,9 +47,8 @@ public class ProductsAPI {
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
     public ResponseEntity<ProductsArrayResponseDto> getProducts(@RequestParam(required = false) Integer offset,
-                                                                @RequestParam(required = false) Integer limit,
-                                                                @RequestParam(required = false) List<String> filterBy) {
-        return ResponseEntity.status(HttpStatus.OK).body(productsMapper.toModel(productsService.getAllProducts()));
+                                                                @RequestParam(required = false) Integer limit) {
+        return ResponseEntity.status(HttpStatus.OK).body(productsMapper.toModel(productsService.getAllProducts(offset, limit)));
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

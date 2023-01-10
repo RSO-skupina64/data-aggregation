@@ -17,8 +17,13 @@ public class ProductsService {
         this.productRepository = productRepository;
     }
 
-    public ProductsListVAO getAllProducts() {
-        List<Product> products = productRepository.findAll();
+    public ProductsListVAO getAllProducts(Integer offset, Integer limit) {
+        List<Product> products;
+        if (offset == null || limit == null) {
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.findAll(offset, limit);
+        }
 
         return new ProductsListVAO(products.size(), products);
     }

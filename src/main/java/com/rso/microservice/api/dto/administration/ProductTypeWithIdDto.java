@@ -6,20 +6,20 @@ import javax.validation.constraints.NotBlank;
 
 public class ProductTypeWithIdDto {
 
-    @JsonProperty("id_type")
+    @JsonProperty("id_product_type")
     @NotBlank(message = "is required")
-    private String idType;
+    private String idProductType;
 
     @JsonProperty("name")
     @NotBlank(message = "is required")
     private String name;
 
-    public String getIdType() {
-        return idType;
+    public String getIdProductType() {
+        return idProductType;
     }
 
-    public void setIdType(String idType) {
-        this.idType = idType;
+    public void setIdProductType(String idProductType) {
+        this.idProductType = idProductType;
     }
 
     public String getName() {

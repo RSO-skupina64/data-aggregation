@@ -1,5 +1,6 @@
 package com.rso.microservice.api.mapper;
 
+import com.rso.microservice.api.dto.products.ProductDetailsDto;
 import com.rso.microservice.api.dto.products.ProductDto;
 import com.rso.microservice.api.dto.products.ProductsArrayResponseDto;
 import com.rso.microservice.entity.Product;
@@ -15,13 +16,15 @@ public interface ProductsMapper {
 
     @Mapping(source = "products", target = "products")
     @Mapping(source = "count", target = "count")
-    ProductsArrayResponseDto toModel(ProductsListVAO productsListVAO);
+    ProductsArrayResponseDto toModelProductDto(ProductsListVAO productsListVAO);
 
-    List<ProductDto> toModel(List<Product> products);
+    List<ProductDto> toModelProductDto(List<Product> products);
 
-    ProductDto toModel(Product product);
+    ProductDto toModelProductDto(Product product);
 
-    default String toModel(ProductType productType) {
+    ProductDetailsDto toModelProductDetailsDto(Product product);
+
+    default String toModelProductDto(ProductType productType) {
         return productType.getName();
     }
 }

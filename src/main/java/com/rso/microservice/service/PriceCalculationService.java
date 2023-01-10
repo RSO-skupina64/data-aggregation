@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
+@RefreshScope
 public class PriceCalculationService {
     private static final Logger log = LoggerFactory.getLogger(PriceCalculationService.class);
 
@@ -59,10 +61,6 @@ public class PriceCalculationService {
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(PriceCalculationGraphQLResponseBody.class).block();
-    }
-
-    public PriceCalculationGraphQLResponseBody circuitBreaker(PriceCalculationGraphQLRequestBody requestBody) {
-        return new PriceCalculationGraphQLResponseBody();
     }
 
 }

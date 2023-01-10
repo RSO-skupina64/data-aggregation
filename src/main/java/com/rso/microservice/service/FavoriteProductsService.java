@@ -25,7 +25,7 @@ public class FavoriteProductsService {
 
     private final FavoriteProductsService favoriteProductsService;
 
-    @Value("${microservice.favorite.products.url}")
+    @Value("${microservice.favorite-products.url}")
     private String favoriteProductsUrl;
 
     public FavoriteProductsService(FavoriteProductsService favoriteProductsService) {
@@ -56,9 +56,8 @@ public class FavoriteProductsService {
     }
 
     public MessageDto circuitBreakerAddFavoriteProduct(FavoriteProductRequestDto favoriteProductRequest, String jwt,
-                                                       String requestId, String version, Throwable ex) {
+                                                       String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
-        log.error(String.valueOf(ex));
         log.error("There was an error when calling addFavoriteProduct, so circuit breaker was activated");
         return new MessageDto("Error while calling favorite products, circuit breaker method called");
     }

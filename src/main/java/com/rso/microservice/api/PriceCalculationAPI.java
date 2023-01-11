@@ -49,9 +49,9 @@ public class PriceCalculationAPI {
     })
     public ResponseEntity<PriceCalculationResponseDto> calculatePrice(@Valid @RequestBody CalculatePriceRequestDto favoriteProductRequest) {
         log.info("calculatePrice: ENTRY");
-        PriceCalculationResponseDto response = priceCalculationService.calculatePrice(favoriteProductRequest.getProductList());
+        PriceCalculationResponseDto priceCalculationResponseDto = priceCalculationService.calculatePrice(favoriteProductRequest.getProductList());
         log.info("calculatePrice: EXIT");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(priceCalculationResponseDto);
     }
 
     @PostMapping(value = "/calculate/shop", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,9 +65,11 @@ public class PriceCalculationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<ShopPriceDto> calculatePriceSpecificShop(@Valid @RequestBody CalculatePriceSpecificShopRequestDto favoriteProductRequest) {
-        // todo: add code here
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    public ResponseEntity<ShopPriceDto> calculatePriceSpecificShop(@Valid @RequestBody CalculatePriceSpecificShopRequestDto calculatePriceSpecificShopRequestDto) {
+        log.info("calculatePriceSpecificShop: ENTRY");
+        ShopPriceDto shopPriceDto = priceCalculationService.calculatePriceSpecificShop(calculatePriceSpecificShopRequestDto);
+        log.info("calculatePriceSpecificShop: EXIT");
+        return ResponseEntity.status(HttpStatus.OK).body(shopPriceDto);
     }
 
 }

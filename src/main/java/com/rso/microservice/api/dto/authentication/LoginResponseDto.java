@@ -36,5 +36,4 @@ public class LoginResponseDto {
     public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
     }
-
 }

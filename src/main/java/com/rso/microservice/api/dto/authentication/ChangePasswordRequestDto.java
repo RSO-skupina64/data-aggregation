@@ -32,5 +32,4 @@ public class ChangePasswordRequestDto {
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
     }
-
 }

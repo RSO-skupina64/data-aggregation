@@ -25,6 +25,8 @@ public interface ProductsMapper {
     ProductDetailsDto toModelProductDetailsDto(Product product);
 
     default String toModelProductDto(ProductType productType) {
-        return productType.getName();
+        if (productType != null)
+            return productType.getName();
+        return "";
     }
 }

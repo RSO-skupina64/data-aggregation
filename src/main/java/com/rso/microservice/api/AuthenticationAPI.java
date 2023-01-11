@@ -133,7 +133,7 @@ public class AuthenticationAPI {
         log.info("updateUserProfile: ENTRY");
         userDetails = authenticationService.updateUserProfile(jwt, userDetails);
         log.info("updateUserProfile: EXIT");
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageDto(userDetails));
+        return ResponseEntity.status(HttpStatus.OK).body(userDetails);
     }
 
     @PutMapping(value = "/user/change-password", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -61,7 +61,7 @@ public class AdministratorService {
                 .queryParam("fetchPictures", fetchPictures);
         String url = builder.toUriString();
 
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -73,7 +73,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerFetchProductPrices(String jwt, boolean fetchPictures, String requestId,
                                                        String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling fetchProductPrices, so circuit breaker was activated");
         return new MessageDto("Error while calling prices, circuit breaker method called");
     }
@@ -97,7 +97,7 @@ public class AdministratorService {
                 .queryParam("fetchPictures", fetchPictures);
         url = builder.toUriString();
 
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -109,7 +109,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerFetchProductPricesSpecificShop(String jwt, String id, boolean fetchPictures,
                                                                    String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling fetchProductPricesSpecificShop, so circuit breaker was activated");
         return new MessageDto("Error while calling prices, circuit breaker method called");
     }
@@ -126,7 +126,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerCreateProduct")
     public ProductWithIdDto callCreateProduct(String jwt, ProductDto product, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -138,7 +138,7 @@ public class AdministratorService {
 
     public ProductWithIdDto circuitBreakerCreateProduct(String jwt, ProductDto product, String requestId,
                                                         String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling createProduct, so circuit breaker was activated");
         return null;
     }
@@ -154,7 +154,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteProduct")
     public MessageDto callDeleteProduct(String jwt, ProductIdDto productId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -166,7 +166,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerDeleteProduct(String jwt, ProductIdDto productId, String requestId,
                                                   String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProduct, so circuit breaker was activated");
         return new MessageDto("Error while calling products, circuit breaker method called");
     }
@@ -182,7 +182,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateProduct")
     public MessageDto callUpdateProduct(String jwt, ProductWithIdDto productWithId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -194,7 +194,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerUpdateProduct(String jwt, ProductWithIdDto productWithId, String requestId,
                                                   String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProduct, so circuit breaker was activated");
         return new MessageDto("Error while calling products, circuit breaker method called");
     }
@@ -214,7 +214,7 @@ public class AdministratorService {
     public ProductShopHistoryWithIdDto callCreateProductShopHistory(String jwt,
                                                                     ProductShopHistoryDto productShopHistory,
                                                                     String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -228,7 +228,7 @@ public class AdministratorService {
     public ProductShopHistoryWithIdDto circuitBreakerCreateProductShopHistory(String jwt,
                                                                               ProductShopHistoryDto productShopHistory,
                                                                               String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling createProductShopHistory, so circuit breaker was activated");
         return null;
     }
@@ -245,7 +245,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteProductShopHistory")
     public MessageDto callDeleteProductShopHistory(String jwt, ProductIdDto productId, String requestId,
                                                    String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -257,7 +257,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerDeleteProductShopHistory(String jwt, ProductIdDto productId, String requestId,
                                                              String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProductShopHistory, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -275,7 +275,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateProductShopHistory")
     public MessageDto callUpdateProductShopHistory(String jwt, ProductShopHistoryWithIdDto productShopHistoryWithId,
                                                    String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -288,7 +288,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerUpdateProductShopHistory(String jwt,
                                                              ProductShopHistoryWithIdDto productShopHistoryWithId,
                                                              String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProductShopHistory, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -307,7 +307,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerCreateProductType")
     public ProductTypeWithIdDto callCreateProductType(String jwt, ProductTypeDto productType, String requestId,
                                                       String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -319,7 +319,7 @@ public class AdministratorService {
 
     public ProductTypeWithIdDto circuitBreakerCreateProductType(String jwt, ProductTypeDto productType,
                                                                 String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling createProductType, so circuit breaker was activated");
         return null;
     }
@@ -336,7 +336,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteProductType")
     public MessageDto callDeleteProductType(String jwt, ProductTypeIdDto productTypeId, String requestId,
                                             String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -348,7 +348,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerDeleteProductType(String jwt, ProductTypeIdDto productTypeId, String requestId,
                                                       String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProductType, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -365,7 +365,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateProductType")
     public MessageDto callUpdateProductType(String jwt, ProductTypeWithIdDto productTypeWithId, String requestId,
                                             String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -377,7 +377,7 @@ public class AdministratorService {
 
     public MessageDto circuitBreakerUpdateProductType(String jwt, ProductTypeWithIdDto productTypeWithId,
                                                       String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProductType, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -394,7 +394,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerCreateRole")
     public RoleWithIdDto callCreateRole(String jwt, RoleDto role, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -405,7 +405,7 @@ public class AdministratorService {
     }
 
     public RoleWithIdDto circuitBreakerCreateRole(String jwt, RoleDto role, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling createRole, so circuit breaker was activated");
         return null;
     }
@@ -421,7 +421,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteRole")
     public MessageDto callDeleteRole(String jwt, RoleIdDto roleId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -432,7 +432,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerDeleteRole(String jwt, RoleIdDto roleId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteRole, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -448,7 +448,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateRole")
     public MessageDto callUpdateRole(String jwt, RoleWithIdDto roleWithId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -459,7 +459,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerUpdateRole(String jwt, RoleWithIdDto roleWithId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateRole, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -479,7 +479,7 @@ public class AdministratorService {
     public ShopWithIdDto callCreateShop(String jwt,
                                         ShopDto shop,
                                         String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -493,7 +493,7 @@ public class AdministratorService {
     public ShopWithIdDto circuitBreakerCreateShop(String jwt,
                                                   ShopDto shop,
                                                   String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling createShop, so circuit breaker was activated");
         return null;
     }
@@ -509,7 +509,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteShop")
     public MessageDto callDeleteShop(String jwt, ShopIdDto shopId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -520,7 +520,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerDeleteShop(String jwt, ShopIdDto shopId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteShop, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -536,7 +536,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateShop")
     public MessageDto callUpdateShop(String jwt, ShopWithIdDto shopWithId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -547,7 +547,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerUpdateShop(String jwt, ShopWithIdDto shopWithId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateShop, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -565,7 +565,7 @@ public class AdministratorService {
     @HystrixCommand(fallbackMethod = "circuitBreakerDeleteUser")
     public MessageDto callDeleteUser(String jwt, UserIdDto userId, String requestId,
                                      String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -576,7 +576,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerDeleteUser(String jwt, UserIdDto userId, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteUser, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }
@@ -592,7 +592,7 @@ public class AdministratorService {
 
     @HystrixCommand(fallbackMethod = "circuitBreakerUpdateUser")
     public MessageDto callUpdateUser(String jwt, UserDto user, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
@@ -603,7 +603,7 @@ public class AdministratorService {
     }
 
     public MessageDto circuitBreakerUpdateUser(String jwt, UserDto user, String requestId, String version) {
-        MDCUtil.putAll("Administration", version, requestId);
+        MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateUser, so circuit breaker was activated");
         return new MessageDto("Error while calling product shop history circuit breaker method called");
     }

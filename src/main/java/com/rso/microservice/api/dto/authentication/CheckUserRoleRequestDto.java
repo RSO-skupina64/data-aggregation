@@ -14,5 +14,4 @@ public class CheckUserRoleRequestDto {
     public void setRole(String role) {
         this.role = role;
     }
-
 }

@@ -75,7 +75,7 @@ public class AdministratorService {
                                                        String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling fetchProductPrices, so circuit breaker was activated");
-        return new MessageDto("Error while calling prices, circuit breaker method called");
+        return new MessageDto("Error while calling administration, circuit breaker method called");
     }
 
     public String fetchProductPricesSpecificShop(String jwt, String id, boolean fetchPictures) {
@@ -111,7 +111,7 @@ public class AdministratorService {
                                                                    String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling fetchProductPricesSpecificShop, so circuit breaker was activated");
-        return new MessageDto("Error while calling prices, circuit breaker method called");
+        return new MessageDto("Error while calling administration, circuit breaker method called");
     }
 
     // product
@@ -168,7 +168,7 @@ public class AdministratorService {
                                                   String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProduct, so circuit breaker was activated");
-        return new MessageDto("Error while calling products, circuit breaker method called");
+        return new MessageDto("Error while calling administration, circuit breaker method called");
     }
 
     public String updateProduct(String jwt, ProductWithIdDto productWithId) {
@@ -196,7 +196,7 @@ public class AdministratorService {
                                                   String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProduct, so circuit breaker was activated");
-        return new MessageDto("Error while calling products, circuit breaker method called");
+        return new MessageDto("Error while calling administration, circuit breaker method called");
     }
 
     // productShopHistory
@@ -259,7 +259,7 @@ public class AdministratorService {
                                                              String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProductShopHistory, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     public String updateProductShopHistory(String jwt, ProductShopHistoryWithIdDto productShopHistoryWithId) {
@@ -290,7 +290,7 @@ public class AdministratorService {
                                                              String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProductShopHistory, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     // productType
@@ -350,7 +350,7 @@ public class AdministratorService {
                                                       String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteProductType, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     public String updateProductType(String jwt, ProductTypeWithIdDto productTypeWithId) {
@@ -379,7 +379,7 @@ public class AdministratorService {
                                                       String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateProductType, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     // role
@@ -434,7 +434,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerDeleteRole(String jwt, RoleIdDto roleId, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteRole, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     public String updateRole(String jwt, RoleWithIdDto roleWithId) {
@@ -461,7 +461,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerUpdateRole(String jwt, RoleWithIdDto roleWithId, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateRole, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     // shop
@@ -522,7 +522,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerDeleteShop(String jwt, ShopIdDto shopId, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteShop, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     public String updateShop(String jwt, ShopWithIdDto shopWithId) {
@@ -549,7 +549,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerUpdateShop(String jwt, ShopWithIdDto shopWithId, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateShop, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     // user
@@ -578,7 +578,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerDeleteUser(String jwt, UserIdDto userId, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling deleteUser, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
     public String updateUser(String jwt, UserDto user) {
@@ -605,7 +605,7 @@ public class AdministratorService {
     public MessageDto circuitBreakerUpdateUser(String jwt, UserDto user, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling updateUser, so circuit breaker was activated");
-        return new MessageDto("Error while calling product shop history circuit breaker method called");
+        return new MessageDto("Error while calling administration circuit breaker method called");
     }
 
 }

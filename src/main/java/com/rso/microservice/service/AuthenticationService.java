@@ -120,17 +120,17 @@ public class AuthenticationService {
         return new MessageDto("Error while calling authentication, circuit breaker method called");
     }
 
-    public UserDetailsDto getUserProfile(String jwt) {
+    public UserDetailsWithIdDto getUserProfile(String jwt) {
         log.info("getUserProfile from URL: {}", authenticationUserProfileUrl);
         String requestId = MDCUtil.get(MDCUtil.MDCUtilKey.REQUEST_ID);
         String version = MDCUtil.get(MDCUtil.MDCUtilKey.MICROSERVICE_VERSION);
-        UserDetailsDto response = authenticationService.callGetUserProfile(jwt, requestId, version);
+        UserDetailsWithIdDto response = authenticationService.callGetUserProfile(jwt, requestId, version);
         log.info("received response: {}", response);
         return response;
     }
 
     @HystrixCommand(fallbackMethod = "circuitBreakerGetUserProfile")
-    public UserDetailsDto callGetUserProfile(String jwt, String requestId, String version) {
+    public UserDetailsWithIdDto callGetUserProfile(String jwt, String requestId, String version) {
         String url = String.format("%s/user", authenticationUserProfileUrl);
 
         MDCUtil.putAll("Data aggregation", version, requestId);
@@ -138,12 +138,12 @@ public class AuthenticationService {
         headers.add(HttpHeaders.AUTHORIZATION, jwt);
         headers.add("X-Request-Id", requestId);
         HttpEntity<?> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<UserDetailsDto> response = new RestTemplate().exchange(url, HttpMethod.GET, requestEntity,
-                UserDetailsDto.class);
+        ResponseEntity<UserDetailsWithIdDto> response = new RestTemplate().exchange(url, HttpMethod.GET, requestEntity,
+                UserDetailsWithIdDto.class);
         return response.getBody();
     }
 
-    public UserDetailsDto circuitBreakerGetUserProfile(String jwt, String requestId, String version) {
+    public UserDetailsWithIdDto circuitBreakerGetUserProfile(String jwt, String requestId, String version) {
         MDCUtil.putAll("Data aggregation", version, requestId);
         log.error("There was an error when calling getUserProfile, so circuit breaker was activated");
         return null;

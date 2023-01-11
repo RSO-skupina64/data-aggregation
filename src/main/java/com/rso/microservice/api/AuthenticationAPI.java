@@ -109,11 +109,11 @@ public class AuthenticationAPI {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     })
-    public ResponseEntity<UserDetailsDto> getUserProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
+    public ResponseEntity<UserDetailsWithIdDto> getUserProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwt) {
         log.info("getUserProfile: ENTRY");
-        UserDetailsDto userDetails = authenticationService.getUserProfile(jwt);
+        UserDetailsWithIdDto userDetailsWithId = authenticationService.getUserProfile(jwt);
         log.info("getUserProfile: EXIT");
-        return ResponseEntity.status(HttpStatus.OK).body(userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(userDetailsWithId);
     }
 
     @PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
